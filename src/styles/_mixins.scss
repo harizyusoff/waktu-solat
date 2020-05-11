@@ -1,0 +1,14 @@
+@mixin debugger($num) {
+  @if $num == 1 {
+    border: 1px solid #1abc9c;
+  } @else if $num == 2 {
+    border: 1px solid #3498db;
+  } @else if $num == 3 {
+    border: 1px solid #e74c3c;
+  } @else {
+    border: 1px solid #333333;
+  }
+}
+
+// Generate random rgb color
+// rgb(random(255), random(255), random(255));
