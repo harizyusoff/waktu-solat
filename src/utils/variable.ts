@@ -1,0 +1,1 @@
+export const waktuSolatApi = 'https://waktu-solat-api.herokuapp.com/api/v1'
