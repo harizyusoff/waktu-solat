@@ -40,8 +40,11 @@
               <p class="prayer-name-text">
                 {{prayerTime.name}}
               </p>
-              <p class="prayer-time-text is-size-1 has-text-weight-bold">
+              <p class="prayer-time-text is-size-1 has-text-weight-bold" @click="handleSelectedPrayerTime(prayerTime.time)">
                 {{prayerTime.time}}
+              </p>
+              <p class="prayer-time-duration">
+                {{getTimeDuration(prayerTime.time)}}
               </p>
             </div>
           </div>
@@ -52,7 +55,7 @@
               </p>
             </div>
             <div class="column is-6">
-              <p class="prayer-time-text">
+              <p class="prayer-time-text" @click="handleSelectedPrayerTime(prayerTime.time)">
                 {{prayerTime.time}}
               </p>
             </div>
@@ -78,7 +81,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import { stateStores } from '../store/states/index'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { currentDate } from '../utils/helpers';
+import { currentDate, timeDuration } from '../utils/helpers';
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 library.add(faChevronUp, faChevronDown)
@@ -88,9 +91,15 @@ library.add(faChevronUp, faChevronDown)
 export default class Home extends Vue {
   state = ""
   zone = ""
+  currentTime = ""
   stateDetailsStore = stateStores.details
 
   async created() {
+    const d = new Date()
+    d.getHours()
+    d.getMinutes()
+    this.currentTime = d.getHours() +":"+ d.getMinutes()
+    console.log(typeof this.currentTime)
     await this.stateDetailsStore.getStates()
   }
 
@@ -121,18 +130,27 @@ export default class Home extends Vue {
     return this.stateDetailsStore.prayerTimes
   }
 
+  getTimeDuration(prayerTime: string) {
+    return timeDuration(this.currentTime, prayerTime)
+  }
+
+  handleSelectedPrayerTime(a: string) {
+    console.log(a);
+  }
+
+
   // formatDate(date: string) {
   //   const d = new Date()
   //   const 
   //     parts = date.split(":"),
-  //     hours = parseInt(parts[0], 10),
-  //     minutes = parseInt(parts[1], 10)
+  //     hours = parseInt(parts[0]),
+  //     minutes = parseInt(parts[1])
 
   //   d.setHours(hours)
   //   d.setHours(minutes)
   //   console.log("OLD: ", date);
   //   console.log("NEW: ", dayjs(d).format("HH:mm"))
-  //   return d
+  //   return d.toUTCString()
   // }
 }
 </script>
