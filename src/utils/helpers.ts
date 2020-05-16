@@ -3,6 +3,6 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 dayjs.extend(customParseFormat)
 
-export const currentDate = (date: string) => {
+export const currentDate = (date: date) => {
   return dayjs(date, "HH:mm");
 }
