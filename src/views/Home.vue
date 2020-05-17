@@ -33,40 +33,45 @@
           </b-dropdown>
         </div>
       </div>
-      <template v-for="(prayerTime, index) in prayerTimeLists">
-        <div class="prayer-time-container" :key="index">
-          <div class="columns is-mobile big-block" v-if="index <= 0">
-            <div class="column">
-              <p class="prayer-name-text">
-                {{prayerTime.name}}
-              </p>
-              <p class="prayer-time-text is-size-1 has-text-weight-bold" @click="handleSelectedPrayerTime(prayerTime.time)">
-                {{prayerTime.time}}
-              </p>
-              <p class="prayer-time-duration">
-                {{getTimeDuration(prayerTime.time)}}
-              </p>
+      <transition name="fade">
+        <div v-if="prayerTimeLists.length">
+          <template v-for="(prayerTime, index) in prayerTimeLists">
+            <div class="prayer-time-container" :key="index">
+              <div class="columns is-mobile big-block" v-if="index <= 0">
+                <div class="column">
+                  <p class="prayer-name-text">
+                    {{prayerTime.name}}
+                  </p>
+                  <p class="prayer-time-text is-size-1 has-text-weight-bold" @click="handleSelectedPrayerTime(prayerTime.time)">
+                    {{prayerTime.time}}
+                  </p>
+                  <p class="prayer-time-duration">
+                    {{getTimeDuration(prayerTime.time)}}
+                  </p>
+                </div>
+              </div>
+              <div class="columns is-mobile small-block" v-else>
+                <div class="column is-6">
+                  <p class="prayer-name-text">
+                    {{prayerTime.name}}
+                  </p>
+                </div>
+                <div class="column is-6">
+                  <p class="prayer-time-text" @click="handleSelectedPrayerTime(prayerTime.time)">
+                    {{prayerTime.time}}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="columns is-mobile small-block" v-else>
-            <div class="column is-6">
-              <p class="prayer-name-text">
-                {{prayerTime.name}}
-              </p>
-            </div>
-            <div class="column is-6">
-              <p class="prayer-time-text" @click="handleSelectedPrayerTime(prayerTime.time)">
-                {{prayerTime.time}}
-              </p>
-            </div>
-          </div>
+          </template>
         </div>
-      </template>
-      <!-- <template v-else>
+      </transition>
+      <template v-if="!prayerTimeLists.length">
         <div class="empty-prayer-time-placeholder">
+          <img src="../assets/masjid-washed.svg"/>
           <p>No waktu solat yet</p>
         </div>
-      </template> -->
+      </template>
       <div class="columns credit-container">
         <div class="column">
           <label class="credit-label">Courtesy of Waktu Solat API by <a target="_blank" href="https://zaimramlan.github.io/waktu-solat-api/#apistates_list">Zaim Ramlan - Waktu Solat API</a></label>
@@ -85,7 +90,6 @@ import { currentDate, timeDuration } from '../utils/helpers';
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 library.add(faChevronUp, faChevronDown)
-// dayjs.extend(utc)
 
 @Component({})
 export default class Home extends Vue {
@@ -137,21 +141,6 @@ export default class Home extends Vue {
   handleSelectedPrayerTime(a: string) {
     console.log(a);
   }
-
-
-  // formatDate(date: string) {
-  //   const d = new Date()
-  //   const 
-  //     parts = date.split(":"),
-  //     hours = parseInt(parts[0]),
-  //     minutes = parseInt(parts[1])
-
-  //   d.setHours(hours)
-  //   d.setHours(minutes)
-  //   console.log("OLD: ", date);
-  //   console.log("NEW: ", dayjs(d).format("HH:mm"))
-  //   return d.toUTCString()
-  // }
 }
 </script>
 
@@ -201,6 +190,13 @@ export default class Home extends Vue {
   a {
     color: rgb(207, 207, 207);
     font-weight: 600;
+  }
+}
+
+.empty-prayer-time-placeholder {
+  img {
+    height: 120px;
+    width: 120px;
   }
 }
 </style>
