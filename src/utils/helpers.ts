@@ -3,11 +3,11 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 dayjs.extend(customParseFormat)
 
-export const currentDate = (date: date) => {
+export const currentDate = (date: Date) => {
   return dayjs(date, "HH:mm");
 }
 
-export const timeDuration = (currentTime, prayerTime) => {
+export const timeDuration = (currentTime: string, prayerTime: string) => {
   const currentHourDN = parseInt(currentTime.split(":")[0])
   const currentHourPT =  parseInt(prayerTime.split(":")[0])
   const currentMinuteDN = parseInt(currentTime.split(":")[1])

@@ -1,6 +1,7 @@
 <template>
   <div class="container home-container">
     <div class="home-wrapper">
+      <!-- Waktu solat selection -->
       <div class="columns is-mobile">
         <div class="column is-6 dropdown-container">
           <label for="states">Negeri: </label>
@@ -33,6 +34,7 @@
           </b-dropdown>
         </div>
       </div>
+      <!-- Main screen of waktu solat -->
       <transition name="fade">
         <div v-if="prayerTimeLists.length">
           <template v-for="(prayerTime, index) in prayerTimeLists">
@@ -66,12 +68,16 @@
           </template>
         </div>
       </transition>
+      <!-- No waktu solat placeholder -->
       <template v-if="!prayerTimeLists.length">
-        <div class="empty-prayer-time-placeholder">
+        <div v-if="!isLoading" class="empty-prayer-time-placeholder">
           <img src="../assets/masjid-washed.svg"/>
-          <p>No waktu solat yet</p>
+          <p>Tiada paparan waktu solat disini</p>
         </div>
+        <!-- Fetching loader -->
+        <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"></b-loading>
       </template>
+      <!-- API Credit -->
       <div class="columns credit-container">
         <div class="column">
           <label class="credit-label">Courtesy of Waktu Solat API by <a target="_blank" href="https://zaimramlan.github.io/waktu-solat-api/#apistates_list">Zaim Ramlan - Waktu Solat API</a></label>
@@ -95,6 +101,8 @@ library.add(faChevronUp, faChevronDown)
 export default class Home extends Vue {
   state = ""
   zone = ""
+  isLoading = false
+  isFullPage = false
   currentTime = ""
   stateDetailsStore = stateStores.details
 
@@ -103,23 +111,31 @@ export default class Home extends Vue {
     d.getHours()
     d.getMinutes()
     this.currentTime = d.getHours() +":"+ d.getMinutes()
-    console.log(typeof this.currentTime)
     await this.stateDetailsStore.getStates()
   }
 
   @Watch('state')
   async handleSelectedState() {
+    this.isLoading = true
     this.zone = ""
     await this.stateDetailsStore.getZones(this.state)
+
+    if (this.stateDetailsStore.zones) {
+      this.isLoading = false
+    }
   }
   
   @Watch('zone')
   async handleSelectedZone() {
+    this.isLoading = true
     const {zone, state} = this
-    await this.stateDetailsStore.getPrayerTimes({
-      zone,
-      state
-    })
+
+    if (this.zone) {
+      await this.stateDetailsStore.getPrayerTimes({
+        zone,
+        state
+      })
+    }    
   }
 
   get stateLists() {
