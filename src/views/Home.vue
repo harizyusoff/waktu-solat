@@ -1,6 +1,6 @@
 <template>
   <div class="container home-container">
-    <div class="home-wrapper">
+    <div class="home-main-wrapper">
       <!-- Waktu solat selection -->
       <div class="columns is-mobile">
         <div class="column is-6 dropdown-container">
@@ -36,47 +36,53 @@
       </div>
       <!-- Main screen of waktu solat -->
       <transition name="fade">
-        <div v-if="prayerTimeLists.length">
-          <template v-for="(prayerTime, index) in prayerTimeLists">
-            <div class="prayer-time-container" :key="index">
-              <div class="columns is-mobile big-block" v-if="index <= 0">
-                <div class="column">
-                  <p class="prayer-name-text">
-                    {{prayerTime.name}}
-                  </p>
-                  <p class="prayer-time-text is-size-1 has-text-weight-bold" @click="handleSelectedPrayerTime(prayerTime.time)">
-                    {{prayerTime.time}}
-                  </p>
-                  <p class="prayer-time-duration">
-                    {{getTimeDuration(prayerTime.time)}}
-                  </p>
+        <div class="main-prayer-time-wrapper">
+          <!-- Waktu solat data -->
+          <div v-if="prayerTimeLists.length && isStateAndZoneSelected" class="displayed-prayer-time-block">
+            <template v-for="(prayerTime, index) in prayerTimeLists">
+              <div class="prayer-time-container" :key="index">
+                <div class="columns is-mobile big-block" v-if="index <= 0">
+                  <div class="column">
+                    <p class="prayer-name-text">
+                      {{prayerTime.name}}
+                    </p>
+                    <p class="prayer-time-text is-size-1 has-text-weight-bold" @click="handleSelectedPrayerTime(prayerTime.time)">
+                      {{prayerTime.time}}
+                    </p>
+                    <p class="prayer-time-duration">
+                      {{getTimeDuration(prayerTime.time)}}
+                    </p>
+                  </div>
+                </div>
+                <div class="columns is-mobile small-block" v-else>
+                  <div class="column is-6">
+                    <p class="prayer-name-text">
+                      {{prayerTime.name}}
+                    </p>
+                  </div>
+                  <div class="column is-6">
+                    <p class="prayer-time-text" @click="handleSelectedPrayerTime(prayerTime.time)">
+                      {{prayerTime.time}}
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="columns is-mobile small-block" v-else>
-                <div class="column is-6">
-                  <p class="prayer-name-text">
-                    {{prayerTime.name}}
-                  </p>
-                </div>
-                <div class="column is-6">
-                  <p class="prayer-time-text" @click="handleSelectedPrayerTime(prayerTime.time)">
-                    {{prayerTime.time}}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </template>
+            </template>
+          </div>
+          <!-- No waktu solat placeholder -->
+          <div v-else class="empty-prayer-time-placeholder">
+            <img src="../assets/masjid-washed.svg"/>
+            <template v-if="state">
+              <p>Sila pilih <b>Daerah</b> untuk paparan waktu solat</p>
+            </template>
+            <template v-else>
+              <p>Sila pilih <b>Negeri</b> untuk paparan waktu solat</p>
+            </template>
+          </div>
+          <!-- Fetching loader -->
+          <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"></b-loading>
         </div>
       </transition>
-      <!-- No waktu solat placeholder -->
-      <template v-if="!prayerTimeLists.length">
-        <div v-if="!isLoading" class="empty-prayer-time-placeholder">
-          <img src="../assets/masjid-washed.svg"/>
-          <p>Tiada paparan waktu solat disini</p>
-        </div>
-        <!-- Fetching loader -->
-        <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"></b-loading>
-      </template>
       <!-- API Credit -->
       <div class="columns credit-container">
         <div class="column">
@@ -107,11 +113,12 @@ export default class Home extends Vue {
   stateDetailsStore = stateStores.details
 
   async created() {
-    const d = new Date()
-    d.getHours()
-    d.getMinutes()
-    this.currentTime = d.getHours() +":"+ d.getMinutes()
-    await this.stateDetailsStore.getStates()
+    this.initCurrentTime()
+    this.isLoading = true
+    if (this.stateLists) {
+      await this.stateDetailsStore.getStates()
+      this.isLoading = false
+    }
   }
 
   @Watch('state')
@@ -135,7 +142,8 @@ export default class Home extends Vue {
         zone,
         state
       })
-    }    
+      this.isLoading = false
+    }
   }
 
   get stateLists() {
@@ -150,8 +158,19 @@ export default class Home extends Vue {
     return this.stateDetailsStore.prayerTimes
   }
 
+  get isStateAndZoneSelected() {
+    return (this.zone && this.state) ? true : false
+  }
+
   getTimeDuration(prayerTime: string) {
     return timeDuration(this.currentTime, prayerTime)
+  }
+
+  initCurrentTime() {
+    const d = new Date()
+    d.getHours()
+    d.getMinutes()
+    this.currentTime = d.getHours() +":"+ d.getMinutes()
   }
 
   handleSelectedPrayerTime(a: string) {
@@ -168,7 +187,7 @@ export default class Home extends Vue {
   align-items: center;
 }
 
-.home-wrapper {
+.home-main-wrapper {
   width: 100%;
   text-align: center;
 }
@@ -213,6 +232,17 @@ export default class Home extends Vue {
   img {
     height: 120px;
     width: 120px;
+  }
+}
+
+.main-prayer-time-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 336px;
+
+  .displayed-prayer-time-block {
+    width: 100%;
   }
 }
 </style>

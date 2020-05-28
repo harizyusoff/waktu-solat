@@ -1,0 +1,10 @@
+CSS Naming
+----------
+
+.-container
+  .-main-wrapper
+    .-wrapper
+      .-block
+  .-another-main-wrapper
+    .-another-wrapper
+      .-another-block
