@@ -1,7 +1,7 @@
 import store from '../index'
 import { Action, Mutation, Module, VuexModule, getModule } from 'vuex-module-decorators'
 import axios from 'axios'
-import { Endpoints } from '../endpoints';
+import { Endpoints } from '../endpoints'
 
 @Module({
   namespaced: true,
