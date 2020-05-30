@@ -2,7 +2,7 @@
   <div class="container home-container">
     <div class="home-main-wrapper">
       <!-- Waktu solat selection -->
-      <div class="columns is-mobile">
+      <div class="columns">
         <div class="column is-6 dropdown-container">
           <label for="states">Negeri: </label>
           <b-dropdown aria-role="list" v-model="state">
@@ -71,7 +71,7 @@
           </div>
           <!-- No waktu solat placeholder -->
           <div v-else class="empty-prayer-time-placeholder">
-            <img src="../assets/masjid-washed.svg"/>
+            <img src="../assets/masjid.svg"/>
             <template v-if="state">
               <p>Sila pilih <b>Daerah</b> untuk paparan waktu solat</p>
             </template>
@@ -86,7 +86,7 @@
       <!-- API Credit -->
       <div class="columns credit-container">
         <div class="column">
-          <label class="credit-label">Courtesy of Waktu Solat API by <a target="_blank" href="https://zaimramlan.github.io/waktu-solat-api/#apistates_list">Zaim Ramlan - Waktu Solat API</a></label>
+          <label class="credit-label">Data waktu solat oleh <a target="_blank" href="https://zaimramlan.github.io/waktu-solat-api/#apistates_list">Zaim Ramlan - Waktu Solat API</a></label>
         </div>
       </div>
     </div>
@@ -95,12 +95,10 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { stateStores } from '../store/states/index'
+import { stateStores } from '@/store/states/index'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { currentDate, timeDuration } from '../utils/helpers';
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
+import { timeDuration } from '@/utils/helpers'
 library.add(faChevronUp, faChevronDown)
 
 @Component({})
