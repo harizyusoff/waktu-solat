@@ -1,8 +1,8 @@
 # Waktu Solat
 Display prayer times based on states and zones with miniamlist UI
 
-# Stack
+### Stack
 Created using Vuex (Typescript)
 
-# API
+### API
 https://github.com/zaimramlan/waktu-solat-api
