@@ -2,6 +2,7 @@ import store from '../index';
 import { Action, Mutation, Module, VuexModule, getModule } from 'vuex-module-decorators';
 import axios from 'axios';
 import { Endpoints } from '../endpoints';
+import { currentTime } from '@/utils/helpers';
 
 @Module({
   namespaced: true,
@@ -35,6 +36,14 @@ class StateDetailsStore extends VuexModule {
   @Mutation
   updateLoadingStatus(params: boolean) {
     this.isLoading = params;
+  }
+
+  get sortedPrayerTimes() {
+    const ct = currentTime();
+    const greaterThanCt = this.prayerTimes.filter((data: any) => data.time > ct);
+    const lessThanCt = this.prayerTimes.filter((data: any) => data.time < ct);
+    const sortedTime = greaterThanCt.concat(lessThanCt);
+    return sortedTime;
   }
 
   @Action

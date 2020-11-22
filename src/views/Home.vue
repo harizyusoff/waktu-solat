@@ -56,15 +56,12 @@
           >
             <template v-for="(prayerTime, index) in prayerTimeLists">
               <div class="prayer-time-container" :key="index">
-                <div class="columns is-mobile big-block" v-if="false">
+                <div class="columns is-mobile big-block" v-if="index === 0">
                   <div class="column">
                     <p class="prayer-name-text">
                       {{ prayerTime.name }}
                     </p>
-                    <p
-                      class="prayer-time-text is-size-1 has-text-weight-bold"
-                      @click="handleSelectedPrayerTime(prayerTime.time)"
-                    >
+                    <p class="prayer-time-text is-size-1 has-text-weight-bold">
                       {{ prayerTime.time }}
                     </p>
                     <p class="prayer-time-duration">
@@ -79,7 +76,7 @@
                     </p>
                   </div>
                   <div class="column is-6">
-                    <p class="prayer-time-text" @click="handleSelectedPrayerTime(prayerTime.time)">
+                    <p class="prayer-time-text">
                       {{ prayerTime.time }}
                     </p>
                   </div>
@@ -125,7 +122,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { stateStores } from '@/store/states/index';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { timeDuration } from '@/utils/helpers';
+import { timeDuration, currentTime } from '@/utils/helpers';
 library.add(faChevronUp, faChevronDown);
 
 @Component({})
@@ -138,7 +135,6 @@ export default class Home extends Vue {
   stateDetailsStore = stateStores.details;
 
   async created() {
-    this.initCurrentTime();
     this.isLoading = true;
     if (this.stateLists) {
       await this.stateDetailsStore.getStates();
@@ -180,7 +176,7 @@ export default class Home extends Vue {
   }
 
   get prayerTimeLists() {
-    return this.stateDetailsStore.prayerTimes;
+    return this.stateDetailsStore.sortedPrayerTimes;
   }
 
   get isStateAndZoneSelected() {
@@ -188,18 +184,7 @@ export default class Home extends Vue {
   }
 
   getTimeDuration(prayerTime: string) {
-    return timeDuration(this.currentTime, prayerTime);
-  }
-
-  initCurrentTime() {
-    const d = new Date();
-    d.getHours();
-    d.getMinutes();
-    this.currentTime = d.getHours() + ':' + d.getMinutes();
-  }
-
-  handleSelectedPrayerTime(a: string) {
-    console.log(a);
+    return timeDuration(currentTime(), prayerTime);
   }
 }
 </script>
