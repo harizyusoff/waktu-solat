@@ -33,6 +33,7 @@ export const timeDuration = (currentTime: string, prayerTime: string) => {
     minutes: currentMinutePT,
   });
 
+  // TODO: Refactor and fix negative value
   if (pt.subtract(ct).hours() === 0) {
     return pt.subtract(ct).minutes() + ' minit ';
   } else if (pt.subtract(ct).minutes() === 0) {

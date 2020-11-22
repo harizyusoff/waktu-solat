@@ -58,9 +58,13 @@
               <div class="prayer-time-container" :key="index">
                 <div class="columns is-mobile big-block" v-if="index === 0">
                   <div class="column">
-                    <p class="prayer-name-text">
+                    <p class="prayer-name-text is-size-4 has-text-weight-bold">
                       {{ prayerTime.name }}
                     </p>
+                    <!-- TODO: Dynamic based on prayer time -->
+                    <div class="prayer-time-icon">
+                      <img src="../assets/icons/isyak.svg" alt="Illustration of prayer time" />
+                    </div>
                     <p class="prayer-time-text is-size-1 has-text-weight-bold">
                       {{ prayerTime.time }}
                     </p>
@@ -224,6 +228,15 @@ export default class Home extends Vue {
 
 .prayer-time-container {
   text-align: center;
+}
+
+.prayer-time-icon {
+  text-align: center;
+  margin: 40px 0 40px 0;
+
+  img {
+    width: 120px;
+  }
 }
 
 .credit-container {
