@@ -33,5 +33,13 @@ export const timeDuration = (currentTime: string, prayerTime: string) => {
     minutes: currentMinutePT,
   });
 
+  if (pt.subtract(ct).hours() === 0) {
+    return pt.subtract(ct).minutes() + ' minit ';
+  } else if (pt.subtract(ct).minutes() === 0) {
+    return pt.subtract(ct).hours() + ' jam ';
+  } else if (pt.subtract(ct).hours() === 0 && pt.subtract(ct).minutes() === 0) {
+    return 'Telah masuk waktu untuk solat';
+  }
+
   return pt.subtract(ct).hours() + ' jam ' + pt.subtract(ct).minutes() + ' minit ';
 };
