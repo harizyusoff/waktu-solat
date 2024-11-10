@@ -63,7 +63,10 @@
                     </p>
                     <!-- TODO: Dynamic based on prayer time -->
                     <div class="prayer-time-icon">
-                      <img src="../assets/icons/isyak.svg" alt="Illustration of prayer time" />
+                      <img
+                        :src="require(`@/assets/icons/${prayerTime.name}.svg`)"
+                        alt="Illustration of prayer time"
+                      />
                     </div>
                     <p class="prayer-time-text is-size-1 has-text-weight-bold">
                       {{ prayerTime.time }}
@@ -190,6 +193,29 @@ export default class Home extends Vue {
   getTimeDuration(prayerTime: string) {
     return timeDuration(currentTime(), prayerTime);
   }
+
+  // getPrayerIcon(prayerName: string) {
+  //   switch (prayerName) {
+  //     case 'syuruk':
+  //       return '../assets/icons/syuruk.svg'
+  //     case 'subuh':
+  //       return '../assets/icons/subuh.svg'
+  //     case 'dhuha':
+  //       return '../assets/icons/dhuha.svg'
+  //     case 'zohor':
+  //       return '../assets/icons/zohor.svg'
+  //     case 'asar':
+  //       return '../assets/icons/asar.svg'
+  //     case 'maghrib':
+  //       return '../assets/icons/maghrib.svg'
+  //     case 'isyak':
+  //       return '../assets/icons/isyak.svg'
+  //     case 'imsak':
+  //       return '../assets/icons/imsak.svg'
+  //     default:
+  //       return '../assets/icons/imsak.svg'
+  //   }
+  // }
 }
 </script>
 
@@ -237,6 +263,18 @@ export default class Home extends Vue {
   img {
     width: 120px;
   }
+
+  // Animated img
+  // img {
+  //   width: 120px;
+  //   -webkit-animation:spin 4s linear infinite;
+  //   -moz-animation:spin 4s linear infinite;
+  //   animation:spin 4s linear infinite;
+  // }
+
+  // @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+  // @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+  // @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 }
 
 .credit-container {
