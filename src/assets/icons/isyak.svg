@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119 106.56">
+  <g id="bg_isyak" data-name="Isyak Background">
+    <g id="ic_isyak" data-name="Isyak Icon">
+      <g>
+        <g>
+          <path d="M55.94,44.1A22.8,22.8,0,1,1,52.91,3a17.71,17.71,0,1,0,14.36,24.3A22.72,22.72,0,0,1,55.94,44.1Z" style="fill: #fff19a"/>
+          <path d="M55.19,42.8A21.49,21.49,0,0,1,26.88,36a21.52,21.52,0,0,1,4.7-28.53,21.62,21.62,0,0,1,20.93-3l.4-2.94C41,.28,30.46,10.63,31.78,22.6a19.2,19.2,0,0,0,36.93,5.12l-2.89-.8A21.66,21.66,0,0,1,55.19,42.8a1.5,1.5,0,0,0,1.51,2.59,24.47,24.47,0,0,0,12-17.67,1.5,1.5,0,0,0-2.89-.8A16.22,16.22,0,1,1,37.68,11.19,16.47,16.47,0,0,1,52.91,4.52c1.8.18,1.87-2.4.4-2.95A24.28,24.28,0,0,0,21.2,18a24.3,24.3,0,0,0,35.5,27.4C58.39,44.45,56.87,41.86,55.19,42.8Z" style="fill: #707070"/>
+        </g>
+        <path d="M6.6,106.48H98.7c4.23,0,8.5.18,12.73,0h.17a1.5,1.5,0,0,0,0-3H19.51c-4.23,0-8.5-.18-12.73,0H6.6a1.5,1.5,0,0,0,0,3Z" style="fill: #707070"/>
+        <circle cx="27.5" cy="78.48" r="1.5" style="fill: none;stroke: #d3d3d3;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <circle cx="71" cy="59.98" r="1.5" style="fill: none;stroke: #d3d3d3;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <circle cx="116" cy="54.98" r="1.5" style="fill: none;stroke: #d3d3d3;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <circle cx="88" cy="16.98" r="1.5" style="fill: none;stroke: #d3d3d3;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <circle cx="3" cy="40.98" r="1.5" style="fill: none;stroke: #d3d3d3;stroke-miterlimit: 10;stroke-width: 3px"/>
+      </g>
+    </g>
+  </g>
+</svg>
