@@ -2,7 +2,9 @@ import store from '../index';
 import { Action, Mutation, Module, VuexModule, getModule } from 'vuex-module-decorators';
 import axios from 'axios';
 import { Endpoints } from '../endpoints';
-import { currentTime } from '@/utils/helpers';
+// import { currentTime } from '@/utils/helpers';
+// import { prayerTime } from '@/utils/types';
+// import { waktuOrder } from '@/utils/constants';
 
 @Module({
   namespaced: true,
@@ -38,12 +40,14 @@ class StateDetailsStore extends VuexModule {
     this.isLoading = params;
   }
 
+  // TODO: Recheck this sorted prayer times
   get sortedPrayerTimes() {
-    const ct = currentTime();
-    const greaterThanCt = this.prayerTimes.filter((data: any) => data.time > ct);
-    const lessThanCt = this.prayerTimes.filter((data: any) => data.time < ct);
-    const sortedTime = greaterThanCt.concat(lessThanCt);
-    return sortedTime;
+    // const ct = currentTime();
+    // const greaterThanCt = this.prayerTimes.filter((data: prayerTime) => data.time > ct);
+    // const lessThanCt = this.prayerTimes.filter((data: prayerTime) => data.time < ct);
+    // const sortedTime = greaterThanCt.concat(lessThanCt);
+    // console.log('[DEBUG] sortedPrayerTimes:', { prayerTimes: this.prayerTimes, sortedTime, waktuOrder })
+    return this.prayerTimes;
   }
 
   @Action

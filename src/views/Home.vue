@@ -127,10 +127,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { stateStores } from '@/store/states/index';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { timeDuration, currentTime } from '@/utils/helpers';
-library.add(faChevronUp, faChevronDown);
 
 @Component({})
 export default class Home extends Vue {
@@ -183,7 +180,7 @@ export default class Home extends Vue {
   }
 
   get prayerTimeLists() {
-    return this.stateDetailsStore.sortedPrayerTimes;
+    return this.stateDetailsStore.prayerTimes;
   }
 
   get isStateAndZoneSelected() {
@@ -194,6 +191,7 @@ export default class Home extends Vue {
     return timeDuration(currentTime(), prayerTime);
   }
 
+  // TODO: Recheck this prayer icon
   // getPrayerIcon(prayerName: string) {
   //   switch (prayerName) {
   //     case 'syuruk':
