@@ -180,7 +180,7 @@ export default class Home extends Vue {
   }
 
   get prayerTimeLists() {
-    return this.stateDetailsStore.sortedPrayerTimes;
+    return this.stateDetailsStore.prayerTimes;
   }
 
   get isStateAndZoneSelected() {
@@ -191,6 +191,7 @@ export default class Home extends Vue {
     return timeDuration(currentTime(), prayerTime);
   }
 
+  // TODO: Recheck this prayer icon
   // getPrayerIcon(prayerName: string) {
   //   switch (prayerName) {
   //     case 'syuruk':
